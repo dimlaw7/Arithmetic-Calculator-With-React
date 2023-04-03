@@ -1,3 +1,11 @@
+# Ariyhmetic calculator using React
+
+This project is an on-screen arithmetic calculator REACT app that performs basic arithmectic calculations.
+
+It implements the use of object oriented programming, efficiently and dynamically updating data object with useReducer hook.
+
+The complexity of the app brushed my knowledge of REACT and most expecially gave me a deeper understanding of the useReducer hook.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
