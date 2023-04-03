@@ -9,6 +9,7 @@ export const ACTION = {
   DELETE_DIGIT: "delete-digit",
   CHOOSE_OPERATION: "choose-operation",
   EVALUATE: "evaluate",
+  PERCENT_TO_DECIMAL: "p2d",
 }
 
 const reducer = (state, {type, payload}) => {
@@ -68,9 +69,25 @@ const reducer = (state, {type, payload}) => {
         ...state,
         currentOperand: state.currentOperand.slice(0, -1)
       }
+      break;
+    case ACTION.PERCENT_TO_DECIMAL:
+      return {
+        ...state,
+        previousOperand: null,
+        operation: null,
+        overwrite: true,
+        currentOperand: percentageDecimal(state),
+      }
+      break;
     default:
       return state;
   }
+}
+
+const percentageDecimal = ({ currentOperand }) => {
+  const curr = parseFloat(currentOperand);
+  let computation = curr / 100;
+  return computation;
 }
 
 const evaluate = ({ previousOperand, currentOperand, operation}) => {
@@ -118,7 +135,7 @@ function App() {
         </div>
         <button onClick={() => dispatch({type: ACTION.CLEAR})}>C</button>
         <button>( )</button>
-        <button>%</button>
+        <button onClick={() => dispatch({type: ACTION.PERCENT_TO_DECIMAL})}>%</button>
         <Operationkey operation="*" dispatch={ dispatch } />
         <Inputdigit digit="7" dispatch={ dispatch } />
         <Inputdigit digit="8" dispatch={ dispatch } />
