@@ -10,6 +10,7 @@ export const ACTION = {
   CHOOSE_OPERATION: "choose-operation",
   EVALUATE: "evaluate",
   PERCENT_TO_DECIMAL: "p2d",
+  PLUS_OR_MINUS: "+/-",
 }
 
 const reducer = (state, {type, payload}) => {
@@ -79,7 +80,22 @@ const reducer = (state, {type, payload}) => {
         currentOperand: percentageDecimal(state),
       }
       break;
-    default:
+    case ACTION.PLUS_OR_MINUS:
+      if (state.currentOperand == null && state.previousOperand == null) {
+        return state;
+      }
+      // if(state.operation) {
+      //   return {
+      //     ...state,
+      //     currentOperand: `(-${state.currentOperand})`,
+      //   }
+      // }
+      return {
+        ...state,
+        currentOperand: `-${state.currentOperand}`,
+      }
+      break;
+      default:
       return state;
   }
 }
@@ -149,7 +165,7 @@ function App() {
         <Inputdigit digit="2" dispatch={ dispatch } />
         <Inputdigit digit="3" dispatch={ dispatch } />
         <Operationkey operation="+" dispatch={ dispatch } />
-        <button>+/-</button>
+        <button onClick={() => dispatch({type: ACTION.PLUS_OR_MINUS})}>+/-</button>
         <button onClick={() => dispatch({type: ACTION.ADD_DIGIT, payload: { digit: 0} })}>0</button>
         <Inputdigit digit="." dispatch={ dispatch } />
         <button onClick={() => dispatch({type: ACTION.EVALUATE})}>=</button>
